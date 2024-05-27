@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Celebrate - PinkPals</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li class="logo">
+            <a href="{{ url_for('home') }}">
+              <img
+                src="{{ url_for('static', filename='images/sun.png') }}"
+                alt="Logo"
+              />
+              <p>PinkPals</p>
+            </a>
+          </li>
+          <li><a href="{{url_for('home')}}">Home</a></li>
+          <li><a href="#">Celebrate Now!</a></li>
+          <li><a href="{{url_for('posts')}}">Posts</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="celebrate">
+        <h1>Let's Celebrate!</h1>
+        <div class="celebrate-form">
+          <div class="input-container">
+            <label for="hint">讓她猜一下你是誰：(非必要～)</label>
+            <input
+              type="text"
+              id="hint"
+              placeholder="可以說些特徵，讓她猜猜看你是誰！"
+              class="message-input"
+            />
+          </div>
+          <div class="input-container">
+            <label for="message">內容：</label>
+            <input
+              type="text"
+              id="message"
+              placeholder="留下一些祝福的話！"
+              class="message-input"
+            />
+          </div>
+          <button class="send-button" onclick="openConfirmModal()">Send</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- 確認彈窗 -->
+    <div id="confirmModal" class="modal">
+      <div class="modal-content">
+        <p>確定要發送訊息?</p>
+        <button class="modal-button" onclick="sendMessage()">Yes</button>
+        <button class="modal-button" onclick="closeConfirmModal()">No</button>
+      </div>
+    </div>
+
+    <!-- 成功彈窗 -->
+    <div id="successModal" class="modal">
+      <div class="modal-content">
+        <p>感謝你的祝福!</p>
+        <button class="modal-button" onclick="closeSuccessModal()">OK</button>
+      </div>
+    </div>
+
+    <!-- 錯誤彈窗 -->
+    <div id="errorModal" class="modal">
+      <div class="modal-content">
+        <p id="errorMessage">祝賀詞為必填唷！</p>
+        <button class="modal-button" onclick="closeErrorModal()">OK</button>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>
