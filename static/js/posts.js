@@ -22,6 +22,25 @@ function fetchMessages() {
     });
 }
 
+function formatDate(timestamp) {
+  if (!timestamp) {
+    return "05/28 10:00"; // 设置默认时间
+  }
+  let date;
+  if (timestamp.seconds) {
+    date = new Date(timestamp.seconds * 1000); // Firestore Timestamp
+  } else if (timestamp._seconds) {
+    date = new Date(timestamp._seconds * 1000); // Firestore Timestamp in nested object
+  } else {
+    date = new Date(timestamp); // Direct date string or number
+  }
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  return `${month}/${day} ${hours}:${minutes}`;
+}
+
 function displayMessages(messages) {
   const container = document.getElementById("posts-container");
   container.innerHTML = "";
@@ -29,14 +48,25 @@ function displayMessages(messages) {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-            <div class="card-content">
-                <p class="card-hint">${msg.hint || "為善不欲人知的善人"}</p>
-                <p class="card-message">${msg.message}</p>
-            </div>
-        `;
+      <div class="card-content">
+        <p class="card-hint">${msg.hint || "為善不欲人知的好人！"}</p>
+        <p class="card-message">${msg.message}</p>
+        <p class="card-timestamp">${formatDate(msg.timestamp)}</p>
+      </div>
+    `;
     container.appendChild(card);
   });
   initializeScroll();
+}
+
+function scrollLeft_f() {
+  const container = document.getElementById("posts-container");
+  container.scrollBy({ left: -300, behavior: "smooth" });
+}
+
+function scrollRight_f() {
+  const container = document.getElementById("posts-container");
+  container.scrollBy({ left: 300, behavior: "smooth" });
 }
 
 function initializeScroll() {

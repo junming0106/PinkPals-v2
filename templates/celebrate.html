@@ -13,8 +13,9 @@
       href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   </head>
-  <body>
+  <body onload="shootConfetti()">
     <header>
       <nav>
         <ul>
@@ -27,9 +28,9 @@
               <p>PinkPals</p>
             </a>
           </li>
-          <li><a href="{{url_for('home')}}">Home</a></li>
-          <li><a href="#">Celebrate Now!</a></li>
-          <li><a href="{{url_for('posts')}}">Posts</a></li>
+          <li><a href="{{ url_for('home') }}">Home</a></li>
+          <li><a href="{{ url_for('celebrate') }}">Celebrate Now!</a></li>
+          <li><a href="{{ url_for('posts') }}">Posts</a></li>
         </ul>
       </nav>
     </header>
@@ -51,7 +52,7 @@
             <input
               type="text"
               id="message"
-              placeholder="留下一些祝福的話！"
+              placeholder="祝福的話不要吝嗇啦🥺！"
               class="message-input"
             />
           </div>
@@ -59,8 +60,6 @@
         </div>
       </section>
     </main>
-
-    <!-- 確認彈窗 -->
     <div id="confirmModal" class="modal">
       <div class="modal-content">
         <p>確定要發送訊息?</p>
@@ -69,22 +68,29 @@
       </div>
     </div>
 
-    <!-- 成功彈窗 -->
     <div id="successModal" class="modal">
       <div class="modal-content">
-        <p>感謝你的祝福!</p>
+        <p>感謝你的祝福！🥰</p>
         <button class="modal-button" onclick="closeSuccessModal()">OK</button>
       </div>
     </div>
 
-    <!-- 錯誤彈窗 -->
     <div id="errorModal" class="modal">
       <div class="modal-content">
-        <p id="errorMessage">祝賀詞為必填唷！</p>
+        <p id="errorMessage">祝福的話不要吝嗇啦🥺！</p>
         <button class="modal-button" onclick="closeErrorModal()">OK</button>
       </div>
     </div>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+      function shootConfetti() {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+      }
+    </script>
   </body>
 </html>
